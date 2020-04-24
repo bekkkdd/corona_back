@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Country, Person, City, Region
+from api.models import Country, Person, City, Region, Message
 
 
 class CountrySerializer(serializers.Serializer):
@@ -67,3 +67,10 @@ class PersonSerializer(serializers.ModelSerializer):
         fields = (
         'id', 'name', 'surname', 'is_infected', 'infected_by', 'country_id', 'region_id', 'city_id', 'infected_date',
         'is_recovered', 'is_died')
+
+class MessageSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = (
+            'id', 'message', 'date', 'author_id'
+        )

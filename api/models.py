@@ -1,5 +1,23 @@
+from django.contrib.auth.models import User
 from django.db import models
 
+
+class Message(models.Model):
+    message = models.CharField(blank=True, max_length=300)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(blank=True, null=True)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'massage': self.message,
+            'author_id': self.author_id,
+            'date': self.date
+        }
+
+    class Meta:
+        verbose_name = 'Message',
+        verbose_name_plural = 'Messages'
 
 # Create your models her
 class Country(models.Model):
@@ -32,7 +50,7 @@ class Region(models.Model):
     def to_json(self):
         return {
             'id': self.id,
-            'coutry_id':self.country_id,
+            'country_id':self.country_id,
             'name': self.name,
             'infected_count': self.infected_count,
             'recovered_count': self.recovered_count,
