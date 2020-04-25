@@ -3,8 +3,8 @@ from django.db import models
 
 
 class Message(models.Model):
-    message = models.CharField(blank=True, max_length=300)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.CharField(blank=True, max_length=300,null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     date = models.DateField(blank=True, null=True)
 
     def to_json(self):
@@ -21,10 +21,10 @@ class Message(models.Model):
 
 # Create your models her
 class Country(models.Model):
-    name = models.CharField(max_length=300)
-    infected_count = models.IntegerField(default=0)
-    recovered_count = models.IntegerField(default=0)
-    died_count = models.IntegerField(default=0)
+    name = models.CharField(max_length=300 , null = True)
+    infected_count = models.IntegerField(default=0,null = True)
+    recovered_count = models.IntegerField(default=0,null = True)
+    died_count = models.IntegerField(default=0,null = True)
 
     def to_json(self):
         return {
@@ -41,11 +41,11 @@ class Country(models.Model):
 
 
 class Region(models.Model):
-    country = models.ForeignKey(Country , on_delete=models.CASCADE,null=True)
-    name = models.CharField(max_length=300)
-    infected_count = models.IntegerField(default=0)
-    recovered_count = models.IntegerField(default=0)
-    died_count = models.IntegerField(default=0)
+    country = models.ForeignKey(Country , on_delete=models.SET_NULL,null=True)
+    name = models.CharField(max_length=300,null = True)
+    infected_count = models.IntegerField(default=0,null = True)
+    recovered_count = models.IntegerField(default=0,null = True)
+    died_count = models.IntegerField(default=0,null = True)
 
     def to_json(self):
         return {
@@ -63,12 +63,12 @@ class Region(models.Model):
 
 
 class City(models.Model):
-    country = models.ForeignKey(Country, on_delete=models.CASCADE,null = True)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=300)
-    infected_count = models.IntegerField(default=0)
-    recovered_count = models.IntegerField(default=0)
-    died_count = models.IntegerField(default=0)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL,null = True)
+    region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=300,null=True)
+    infected_count = models.IntegerField(default=0,null=True)
+    recovered_count = models.IntegerField(default=0,null=True)
+    died_count = models.IntegerField(default=0,null=True)
 
     def to_json(self):
         return {
@@ -97,8 +97,8 @@ class Person(models.Model):
     is_infected = models.NullBooleanField(blank=True, default=False)
     infected_by = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     infected_date = models.DateField(blank=True, null=True)
-    is_recovered = models.NullBooleanField(blank=True, default=False)
-    is_died = models.NullBooleanField(blank=True, default=False)
+    is_recovered = models.NullBooleanField(blank=True, default=False,null=True)
+    is_died = models.NullBooleanField(blank=True, default=False,null=True)
 
     class Meta:
         verbose_name = 'Person'
