@@ -100,7 +100,7 @@ def country_detail(request, country_id):
     if request.method == 'GET':
         serializer = CountrySerializer(country)
         Message.objects.create(
-            message=request.user.username + " got country detail " + request.data.get('name'),
+            message=request.user.username + " got country detail " + country.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -111,7 +111,7 @@ def country_detail(request, country_id):
         if serializer.is_valid():
             serializer.save()
             Message.objects.create(
-                message=request.user.username + " edited country " + request.data.get('name'),
+                message=request.user.username + " edited country " + country.name,
                 author_id=request.user.id,
                 date=datetime.now()
             )
@@ -121,7 +121,7 @@ def country_detail(request, country_id):
     elif request.method == 'DELETE':
         country.delete()
         Message.objects.create(
-            message=request.user.username + " deleted country " + request.data.get('name'),
+            message=request.user.username + " deleted country " + country.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -139,7 +139,7 @@ def region_detail(request, region_id):
     if request.method == 'GET':
         serializer = RegionSerializer(region)
         Message.objects.create(
-            message=request.user.username + " got region detail " + request.data.get('name'),
+            message=request.user.username + " got region detail " + region.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -150,7 +150,7 @@ def region_detail(request, region_id):
         if serializer.is_valid():
             serializer.save()
             Message.objects.create(
-                message=request.user.username + " edited region " + request.data.get('name'),
+                message=request.user.username + " edited region " + region.name,
                 author_id=request.user.id,
                 date=datetime.now()
             )
@@ -160,7 +160,7 @@ def region_detail(request, region_id):
     elif request.method == 'DELETE':
         region.delete()
         Message.objects.create(
-            message=request.user.username + " deleted region " + request.data.get('name'),
+            message=request.user.username + " deleted region " + region.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -178,7 +178,7 @@ def city_detail(request, city_id):
     if request.method == 'GET':
         serializer = CitySerializer(city)
         Message.objects.create(
-            message=request.user.username + " got city detail " + request.data.get('name'),
+            message=request.user.username + " got city detail " + city.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -189,7 +189,7 @@ def city_detail(request, city_id):
         if serializer.is_valid():
             serializer.save()
             Message.objects.create(
-                message=request.user.username + " edited city " + request.data.get('name'),
+                message=request.user.username + " edited city " + city.name,
                 author_id=request.user.id,
                 date=datetime.now()
             )
@@ -199,7 +199,7 @@ def city_detail(request, city_id):
     elif request.method == 'DELETE':
         city.delete()
         Message.objects.create(
-            message=request.user.username + " deleted city " + request.data.get('name'),
+            message=request.user.username + " deleted city " + city.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -248,7 +248,7 @@ def person_list(request):
         if serializer.is_valid():
             serializer.save()
             Message.objects.create(
-                message=request.user.username + " created peron " + request.data.get('name'),
+                message=request.user.username + " created person " + request.data.get('name'),
                 author_id=request.user.id,
                 date=datetime.now()
             )
@@ -278,7 +278,7 @@ def person_detail(request, person_id):
     if request.method == 'GET':
         serializer = PersonSerializer(person)
         Message.objects.create(
-            message=request.user.username + " got person detail " + request.data.get('name'),
+            message=request.user.username + " got person detail " + person.name,
             author_id=request.user.id,
             date=datetime.now()
         )
@@ -289,7 +289,7 @@ def person_detail(request, person_id):
         if serializer.is_valid():
             serializer.save()
             Message.objects.create(
-                message=request.user.username + " edited person detail " + request.data.get('name'),
+                message=request.user.username + " edited person detail " + person.name,
                 author_id=request.user.id,
                 date=datetime.now()
             )
@@ -299,7 +299,7 @@ def person_detail(request, person_id):
     elif request.method == 'DELETE':
         person.delete()
         Message.objects.create(
-            message=request.user.username + " deleted person detail " + request.data.get('name'),
+            message=request.user.username + " deleted person detail " + person.name,
             author_id=request.user.id,
             date=datetime.now()
         )
