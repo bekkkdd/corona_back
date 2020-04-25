@@ -9,22 +9,22 @@ urlpatterns = [
 
     path('login/', obtain_jwt_token),
     path('countries/', country_list),
-    path('countries/<int:pk>/', country_detail),
+    path('countries/<int:country_id>/', country_detail),
 
     path('regions/', region_list),
     path('countries/<int:country_id>/regions/', CountryRegions.as_view()),
-    path('regions/<int:pk>/', region_detail),
+    path('regions/<int:region_id>/', region_detail),
 
     path('regions/<int:region_id>/cities/', RegionCities.as_view()),
     path('cities/', city_list),
-    path('cities/<int:pk>/', city_detail),
+    path('cities/<int:city_id>/', city_detail),
     path('countries/<int:country_id>/cities/', CountryCities.as_view()),
 
     path('countries/<int:country_id>/people/', CountryPeople.as_view()),
     path('regions/<int:region_id>/people/', RegionPeople.as_view()),
     path('cities/<int:city_id>/people/', CityPeople.as_view()),
     path('people/', person_list),
-    path('people/<int:pk>/', person_detail),
+    path('people/<int:person_id>/', person_detail),
 
     path('message/', message_list_by_user_id)
 ]
