@@ -57,6 +57,7 @@ def city_list(request):
                 author_id=request.user.id,
                 date=datetime.now()
             )
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'error': serializer.errors},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -119,6 +120,7 @@ def country_detail(request, country_id):
         return Response({'error': serializer.errors})
 
     elif request.method == 'DELETE':
+        print("Good bye, " + country.name)
         country.delete()
         Message.objects.create(
             message=request.user.username + " deleted country " + country.name,

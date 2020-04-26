@@ -56,17 +56,26 @@ class RegionSerializer(serializers.Serializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
+    country_id = serializers.IntegerField()
+    region_id = serializers.IntegerField()
+
     class Meta:
         model = City
         fields = ('id', 'name', 'country_id', 'region_id', 'infected_count', 'recovered_count', 'died_count')
 
 
 class PersonSerializer(serializers.ModelSerializer):
+    country_id = serializers.IntegerField()
+    region_id = serializers.IntegerField()
+    city_id = serializers.IntegerField()
+    infected_by_id = serializers.IntegerField(allow_null=True)
     class Meta:
         model = Person
         fields = (
-        'id', 'name', 'surname', 'is_infected', 'infected_by', 'country_id', 'region_id', 'city_id', 'infected_date',
-        'is_recovered', 'is_died')
+            'id', 'name', 'surname', 'is_infected', 'infected_by_id', 'country_id', 'region_id', 'city_id',
+            'infected_date',
+            'is_recovered', 'is_died')
+
 
 class MessageSerilizer(serializers.ModelSerializer):
     class Meta:
