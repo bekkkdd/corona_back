@@ -285,46 +285,53 @@ def person_detail(request, person_id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        if request.data.get('is_died') and not person.is_died:
-            country_id = request.data.get('country_id')
-            region_id = request.data.get('region_id')
-            city_id = request.data.get('city_id')
-            country = Country.objects.get(id=country_id)
-            city = City.objects.get(id=city_id)
-            region = Region.objects.get(id=region_id)
-            country.died_count+=1
-            city.died_count+=1
-            region.died_count+=1
+        # if request.data.get('is_died') and not person.is_died:
+        #     country_id = request.data.get('country_id')
+        #     region_id = request.data.get('region_id')
+        #     city_id = request.data.get('city_id')
+        #     country = Country.objects.get(id=country_id)
+        #     city = City.objects.get(id=city_id)
+        #     region = Region.objects.get(id=region_id)
+        #     country.died_count+=1
+        #     city.died_count+=1
+        #     region.died_count+=1
         if request.data.get('is_infected') and not person.is_infected:
-            country_id = request.data.get('country_id')
-            region_id = request.data.get('region_id')
-            city_id = request.data.get('city_id')
+
+            country_id = person.country_id
+            region_id = person.region_id
+            city_id = person.city_id
             country = Country.objects.get(id=country_id)
             city = City.objects.get(id=city_id)
             region = Region.objects.get(id=region_id)
-            country.infected_count+=1
-            city.infected_count+=1
-            region.infected_count+=1
-        if request.data.get('is_recovered') and not person.is_recovered:
-            country_id = request.data.get('country_id')
-            region_id = request.data.get('region_id')
-            city_id = request.data.get('city_id')
-            country = Country.objects.get(id=country_id)
-            city = City.objects.get(id=city_id)
-            region = Region.objects.get(id=region_id)
-            country.recovered_count += 1
-            city.recovered_count += 1
-            region.recovered_count += 1
-        if not request.data.get('is_infected') and not person.is_died and person.is_infected:
-            country_id = request.data.get('country_id')
-            region_id = request.data.get('region_id')
-            city_id = request.data.get('city_id')
-            country = Country.objects.get(id=country_id)
-            city = City.objects.get(id=city_id)
-            region = Region.objects.get(id=region_id)
-            country.infected_count -= 1
-            city.infected_count -= 1
-            region.infected_count = 1
+            city_new = City.objects.get(id=city_id)
+            city_new.infected_count = city_new.infected_count + 1
+            print(city_new.infected_count)
+            ciSerializer = CitySerializer(instance=city,data=city_new)
+            if ciSerializer.is_valid():
+                print('aaaaaa')
+                ciSerializer.save()
+        # if request.data.get('is_recovered') and not person.is_recovered:
+        #     country_id = request.data.get('country_id')
+        #     region_id = request.data.get('region_id')
+        #     city_id = request.data.get('city_id')
+        #     country = Country.objects.get(id=country_id)
+        #     city = City.objects.get(id=city_id)
+        #     region = Region.objects.get(id=region_id)
+        #     city_new = City.objects.get(id=city_id)
+        #     city_new.infected_count = city_new.infected_count + 1
+        #     ciSerializer = CitySerializer(instance=city,data=city_new)
+        #     if ciSerializer.is_valid():
+        #         ciSerializer.save()
+        # # if not request.data.get('is_infected') and not person.is_died and person.is_infected:
+        #     country_id = request.data.get('country_id')
+        #     region_id = request.data.get('region_id')
+        #     city_id = request.data.get('city_id')
+        #     country = Country.objects.get(id=country_id)
+        #     city = City.objects.get(id=city_id)
+        #     region = Region.objects.get(id=region_id)
+        #     country.infected_count -= 1
+        #     city.infected_count -= 1
+        #     region.infected_count = 1
 
         serializer = PersonSerializer(instance=person, data=request.data)
         if serializer.is_valid():
