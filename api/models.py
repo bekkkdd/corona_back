@@ -96,7 +96,7 @@ class Person(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, default=0)
     is_infected = models.NullBooleanField(blank=True, default=False)
     infected_by = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    infected_date = models.DateField(blank=True, null=True)
+    infected_date = models.CharField(blank=True, null=True, max_length = 300)
     is_recovered = models.NullBooleanField(blank=True, default=False,null=True)
     is_died = models.NullBooleanField(blank=True, default=False,null=True)
 
